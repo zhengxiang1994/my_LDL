@@ -12,7 +12,8 @@ def read_mat(url):
 
 
 if __name__ == "__main__":
-    data1 = read_mat(r"../datasets/Yeast_dtt.mat")
+    MAX_ITER = 100
+    data1 = read_mat(r"../datasets/SBU_3DFE.mat")
     features = data1["features"]
     label_real = data1["labels"]
     features_dim = len(features[0])
@@ -53,7 +54,7 @@ if __name__ == "__main__":
             return cost1 - xi1*(1/len(x_train))*cost2 + 0.5*xi2*cost3
 
         init_theta = np.ones([features_dim, labels_dim])-np.random.rand(features_dim, labels_dim)/100
-        result = fmin(obj_func, init_theta, maxiter=100)
+        result = fmin(obj_func, init_theta, maxiter=MAX_ITER)
         # print(result)
         y_pre = predict_func(x_test, result)
         result1.append(euclidean(y_test, y_pre))

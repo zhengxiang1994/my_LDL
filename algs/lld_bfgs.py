@@ -36,7 +36,9 @@ def fprime(m_theta, x_train, dis_train, f_dim, l_dim):
 
 
 if __name__ == "__main__":
-    data1 = read_mat(r"../datasets/SJAFFE.mat")
+    MAX_ITER = 70
+
+    data1 = read_mat(r"../datasets/SBU_3DFE.mat")
     features = data1["features"]
     label_real = data1["labels"]
     features_dim = len(features[0])
@@ -54,7 +56,7 @@ if __name__ == "__main__":
         # init_theta = np.ones([features_dim, labels_dim])
         init_theta = np.random.rand(features_dim, labels_dim)
         result = fmin_bfgs(obj_func, init_theta, fprime, args=(x_train, y_train, features_dim, labels_dim),
-                           maxiter=70, disp=True)
+                           maxiter=MAX_ITER, disp=True)
 
         pre_test = predict_func(x_test, result, features_dim, labels_dim)
 

@@ -3,6 +3,7 @@ from sklearn.cluster import KMeans
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from utils.evaluation_metrics import *
+from utils.spectral_clustering import spectral_clustering
 
 
 # read data set .mat
@@ -26,8 +27,11 @@ def next_batch(num, data, labels, codes):
 # cluster
 def cluster_ave(labels_train, n):
     train_len = len(labels_train)
-    kmeans = KMeans(n_clusters=n, random_state=0).fit(labels_train)
-    predict = kmeans.predict(labels_train)
+    # using k-means
+    # kmeans = KMeans(n_clusters=n, random_state=0).fit(labels_train)
+    # predict = kmeans.predict(labels_train)
+    # using spectral clustering
+    predict = spectral_clustering(labels_train, n)
     classification = []
     for i in range(n):
         classification.append([])
@@ -143,7 +147,7 @@ if __name__ == "__main__":
     delta = 10 ** -8    # smoothing term
     epsilon = 0.003     # learning rate
 
-    data1 = read_mat(r"../datasets/SJAFFE.mat")
+    data1 = read_mat(r"../datasets/Yeast_cold.mat")
     features = data1["features"]
     label_real1 = data1["labels"]
     features_dim = len(features[0])

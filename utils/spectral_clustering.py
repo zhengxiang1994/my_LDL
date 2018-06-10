@@ -46,16 +46,20 @@ def spectral_clustering(points, k):
     return KMeans(n_clusters=k).fit_predict(k_smallest_eigenvectors)
 
 
-X, y = make_blobs()
-labels = spectral_clustering(X, 3)
+if __name__ == "__main__":
+    X, y = make_blobs(n_samples=150)
+    # print(X)
+    print(y)
+    labels = spectral_clustering(X, 3)
+    print(labels)
 
-# 画图
-plt.style.use('ggplot')
-# 原数据
-fig, (ax0, ax1) = plt.subplots(ncols=2)
-ax0.scatter(X[:, 0], X[:, 1], c=y)
-ax0.set_title('raw data')
-# 谱聚类结果
-ax1.scatter(X[:, 0], X[:, 1], c=labels)
-ax1.set_title('Spectral Clustering')
-plt.show()
+    # 画图
+    plt.style.use('ggplot')
+    # 原数据
+    fig, (ax0, ax1) = plt.subplots(ncols=2)
+    ax0.scatter(X[:, 0], X[:, 1], c=y)
+    ax0.set_title('raw data')
+    # 谱聚类结果
+    ax1.scatter(X[:, 0], X[:, 1], c=labels)
+    ax1.set_title('Spectral Clustering')
+    plt.show()

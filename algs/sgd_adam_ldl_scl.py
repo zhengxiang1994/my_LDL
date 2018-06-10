@@ -247,8 +247,8 @@ if __name__ == "__main__":
                 codes.append(lr1.predict(x_test[i].reshape(1, -1)))
         codes = np.array(codes).reshape(len(x_test), code_len)
         label_pre = predict_func(x_test, theta1, codes, w1)
-        print(label_pre)
-        print(y_test)
+        # print(label_pre)
+        # print(y_test)
 
         print(euclidean(y_test + 10 ** -6, label_pre + 10 ** -6))
         result1.append(euclidean(y_test + 10 ** -6, label_pre + 10 ** -6))

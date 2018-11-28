@@ -38,6 +38,35 @@ def fidelity(distribution_real, distribution_predict):
     height = distribution_real.shape[0]
     return np.sum(np.sqrt(distribution_real * distribution_predict)) / height
 
+
+def chebyshev(distribution_real, distribution_predict):
+    height = distribution_real.shape[0]
+    return np.sum(np.max(np.abs(distribution_real-distribution_predict), 1)) / height
+
+
+def clark(distribution_real, distribution_predict):
+    height = distribution_real.shape[0]
+    return np.sum(np.sqrt(np.sum((distribution_real-distribution_predict)**2 / (distribution_real+distribution_predict)**2, 1))) / height
+
+
+def canberra(distribution_real, distribution_predict):
+    height = distribution_real.shape[0]
+    return np.sum(np.abs(distribution_real-distribution_predict) / (distribution_real+distribution_predict)) / height
+
+
+def cosine(distribution_real, distribution_predict):
+    height = distribution_real.shape[0]
+    return np.sum(np.sum(distribution_real*distribution_predict, 1) / (np.sqrt(np.sum(distribution_real**2, 1)) *\
+           np.sqrt(np.sum(distribution_predict**2, 1)))) / height
+
+
+def squared_chord(distribution_real, distribution_predict):
+    height = distribution_real.shape[0]
+    numerator = (np.sqrt(distribution_real) - np.sqrt(distribution_predict)) ** 2
+    denominator = np.sum(numerator)
+    return denominator / height
+
+
 if __name__ == "__main__":
     real = np.array([[0.5, 0.5], [0.5, 0.5]])
     predict = np.array([[0.4, 0.6], [0.7, 0.3]])
@@ -47,5 +76,9 @@ if __name__ == "__main__":
     print(kl(real, predict))
     print(intersection(real, predict))
     print(fidelity(real, predict))
+    print(chebyshev(real, predict))
+    print(clark(real, predict))
+    print(canberra(real, predict))
+    print(cosine(real, predict))
 
 
